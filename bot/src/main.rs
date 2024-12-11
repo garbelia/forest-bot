@@ -16,7 +16,7 @@ type Context<'a> = poise::Context<'a, Data, Error>;
 
 // Custom user data passed to all command functions
 pub struct Data {
-    votes: Mutex<HashMap<String, u32>>,
+    _votes: Mutex<HashMap<String, u32>>,
 }
 
 async fn on_error(error: poise::FrameworkError<'_, Data, Error>) {
@@ -43,16 +43,16 @@ async fn main() {
     // FrameworkOptions contains all of poise's configuration option in one struct
     // Every option can be omitted to use its default value
     let options = poise::FrameworkOptions {
-        commands: vec![commands::help(), commands::vote(), commands::getvotes()],
+        commands: vec![
+            commands::help(),
+            commands::greenindex(),
+            commands::festindex(),
+        ],
         prefix_options: poise::PrefixFrameworkOptions {
-            prefix: Some("~".into()),
+            prefix: Some("!".into()),
             edit_tracker: Some(Arc::new(poise::EditTracker::for_timespan(
                 Duration::from_secs(3600),
             ))),
-            additional_prefixes: vec![
-                poise::Prefix::Literal("hey bot,"),
-                poise::Prefix::Literal("hey bot"),
-            ],
             ..Default::default()
         },
         // The global error handler for all error cases that may occur
@@ -99,15 +99,16 @@ async fn main() {
                 println!("Logged in as {}", _ready.user.name);
                 poise::builtins::register_globally(ctx, &framework.options().commands).await?;
                 Ok(Data {
-                    votes: Mutex::new(HashMap::new()),
+                    _votes: Mutex::new(HashMap::new()),
                 })
             })
         })
         .options(options)
         .build();
 
-    let token = var("DISCORD_TOKEN")
-        .expect("Missing `DISCORD_TOKEN` env var, see README for more information.");
+    // let token = var("DISCORD_TOKEN")
+    //     .expect("Missing `DISCORD_TOKEN` env var, see README for more information.");
+    let token = "MTE3NzM2NDExMjMwOTc2ODIwMg.GTOFkz.b3dkQHOlQZek2lnDnroSu5ba_CTdHLoyf4WApU";
     let intents = serenity::GatewayIntents::non_privileged()
         | serenity::GatewayIntents::MESSAGE_CONTENT
         | serenity::GatewayIntents::GUILD_MESSAGE_REACTIONS

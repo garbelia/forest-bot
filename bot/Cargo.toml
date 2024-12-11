@@ -1,0 +1,12 @@
+[package]
+name = "bot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+poise = "0.6.1"
+quick-xml = "0.37.1"
+reqwest = "0.12.9"
+serde = { version = "1.0.215", features = ["derive"]}
+tokio = { version = "1", features = ["full"] } 
+tracing-subscriber = "0.3.19"
