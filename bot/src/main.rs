@@ -106,9 +106,8 @@ async fn main() {
         .options(options)
         .build();
 
-    // let token = var("DISCORD_TOKEN")
-    //     .expect("Missing `DISCORD_TOKEN` env var, see README for more information.");
-    let token = "MTE3NzM2NDExMjMwOTc2ODIwMg.GTOFkz.b3dkQHOlQZek2lnDnroSu5ba_CTdHLoyf4WApU";
+    let token = var("DISCORD_TOKEN")
+        .expect("Missing `DISCORD_TOKEN` env var, see README for more information.");
     let intents = serenity::GatewayIntents::non_privileged()
         | serenity::GatewayIntents::MESSAGE_CONTENT
         | serenity::GatewayIntents::GUILD_MESSAGE_REACTIONS
